@@ -5,20 +5,20 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-4">
-              Futuristic Haven
+              Royal Dubai Palace
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Redefining luxury real estate through innovative design and exceptional service. Your dream property awaits.
+              Redefining luxury hospitality through exceptional service and Arabian elegance. Your perfect stay awaits.
             </p>
           </div>
           
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Properties</h4>
+            <h4 className="font-semibold text-foreground mb-4">Suites</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-accent transition-colors">Buy</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Rent</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Luxury Homes</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Commercial</a></li>
+              <li><a href="#" className="hover:text-accent transition-colors">Presidential</a></li>
+              <li><a href="#" className="hover:text-accent transition-colors">Royal Ocean</a></li>
+              <li><a href="#" className="hover:text-accent transition-colors">Executive</a></li>
+              <li><a href="#" className="hover:text-accent transition-colors">Deluxe</a></li>
             </ul>
           </div>
           
@@ -44,7 +44,7 @@ export const Footer = () => {
         </div>
         
         <div className="border-t border-border mt-12 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Futuristic Haven. All rights reserved.</p>
+          <p>&copy; 2024 Royal Dubai Palace. All rights reserved.</p>
         </div>
       </div>
     </footer>

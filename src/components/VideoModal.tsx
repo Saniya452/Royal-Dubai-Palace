@@ -12,17 +12,17 @@ export const VideoModal = ({ isOpen, onClose }: VideoModalProps) => {
         <DialogHeader>
           <DialogTitle>Virtual Tour - Royal Dubai Palace</DialogTitle>
         </DialogHeader>
-        <div className="w-full h-full rounded-lg overflow-hidden">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-            title="Royal Dubai Palace Virtual Tour"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="rounded-lg"
-          />
+        <div className="w-full h-full rounded-lg overflow-hidden flex items-center justify-center">
+          <video
+            className="w-full h-full object-cover rounded-lg"
+            controls
+            autoPlay
+            muted
+            loop
+          >
+            <source src="https://cdn.pixabay.com/video/2023/05/15/163160-827112938_large.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </DialogContent>
     </Dialog>

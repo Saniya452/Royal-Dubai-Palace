@@ -1,4 +1,5 @@
 import { PropertyCard } from "./PropertyCard";
+import { Link } from "react-router-dom";
 import property1 from "@/assets/property-1.jpg";
 import property2 from "@/assets/property-2.jpg";
 import property3 from "@/assets/property-3.jpg";
@@ -92,9 +93,11 @@ export const PropertyGrid = () => {
         </div>
         
         <div className="text-center mt-12">
-          <button className="text-accent hover:text-accent/80 font-semibold text-lg transition-colors">
-            View All Suites →
-          </button>
+          <Link to="/properties">
+            <button className="text-accent hover:text-accent/80 font-semibold text-lg transition-colors">
+              View All Suites →
+            </button>
+          </Link>
         </div>
       </div>
     </section>

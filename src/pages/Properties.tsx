@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SuiteCard } from "@/components/SuiteCard";
 import { Button } from "@/components/ui/button";
 import { QuickBookingModal } from "@/components/QuickBookingModal";
+import { useSearchParams, Link } from "react-router-dom";
 import suite1 from "@/assets/property-1.jpg";
 import suite2 from "@/assets/property-2.jpg";
 import suite3 from "@/assets/property-3.jpg";
@@ -79,6 +80,16 @@ const suites = [
 
 const Properties = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const search = (searchParams.get("search") || "").toLowerCase();
+
+  const filteredSuites = useMemo(() => {
+    if (!search) return suites;
+    return suites.filter((s) => {
+      const haystack = `${s.title} ${s.location} ${s.price} ${s.area} ${s.amenities?.join(" ") ?? ""}`.toLowerCase();
+      return haystack.includes(search);
+    });
+  }, [search]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -109,10 +120,23 @@ const Properties = () => {
         {/* Suites Grid */}
         <section className="py-20 px-4 lg:px-8">
           <div className="container mx-auto">
+            {search && (
+              <div className="mb-6 flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Showing {filteredSuites.length} result{filteredSuites.length !== 1 ? "s" : ""} for "{search}"
+                </p>
+                <Link to="/properties" className="text-sm text-accent hover:underline">Clear search</Link>
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {suites.map((suite) => (
+              {filteredSuites.map((suite) => (
                 <SuiteCard key={suite.id} {...suite} />
               ))}
+              {filteredSuites.length === 0 && (
+                <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center text-muted-foreground">
+                  No suites match your search.
+                </div>
+              )}
             </div>
           </div>
         </section>

@@ -2,8 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Bed, Bath, Square } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
+  id: number;
   image: string;
   title: string;
   location: string;
@@ -15,6 +17,7 @@ interface PropertyCardProps {
 }
 
 export const PropertyCard = ({ 
+  id,
   image, 
   title, 
   location, 
@@ -70,9 +73,11 @@ export const PropertyCard = ({
           </div>
         </div>
         
-        <Button className="w-full" variant="outline">
-          View Details
-        </Button>
+        <Link to={`/suite/${id}`}>
+          <Button className="w-full" variant="outline">
+            View Details
+          </Button>
+        </Link>
       </div>
     </Card>
   );

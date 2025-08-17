@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Utensils, Dumbbell, Car, Wifi, Waves, Coffee, Sparkles, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const ServicesSection = () => {
   const services = [
@@ -95,9 +96,11 @@ export const ServicesSection = () => {
             <p className="text-muted-foreground mb-6">
               Complimentary high-speed WiFi throughout the hotel
             </p>
-            <Button variant="luxury" className="w-full">
-              Learn More
-            </Button>
+            <Link to="/about">
+              <Button variant="luxury" className="w-full">
+                Learn More
+              </Button>
+            </Link>
           </Card>
         </div>
       </div>

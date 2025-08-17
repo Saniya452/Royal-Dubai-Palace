@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Calendar, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -14,8 +15,8 @@ interface QuickBookingModalProps {
 
 export const QuickBookingModal = ({ isOpen, onClose }: QuickBookingModalProps) => {
   const [formData, setFormData] = useState({
-    checkIn: "",
-    checkOut: "",
+    checkIn: undefined as Date | undefined,
+    checkOut: undefined as Date | undefined,
     guests: "2",
     name: "",
     email: "",
@@ -31,8 +32,8 @@ export const QuickBookingModal = ({ isOpen, onClose }: QuickBookingModalProps) =
     });
     onClose();
     setFormData({
-      checkIn: "",
-      checkOut: "",
+      checkIn: undefined,
+      checkOut: undefined,
       guests: "2",
       name: "",
       email: "",
@@ -50,23 +51,23 @@ export const QuickBookingModal = ({ isOpen, onClose }: QuickBookingModalProps) =
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label htmlFor="quick-checkin">Check-in</Label>
-              <Input
-                id="quick-checkin"
-                type="date"
-                value={formData.checkIn}
-                onChange={(e) => setFormData({...formData, checkIn: e.target.value})}
-                required
-              />
+              <div className="mt-2">
+                <DatePicker
+                  date={formData.checkIn}
+                  onSelect={(date) => setFormData({...formData, checkIn: date})}
+                  placeholder="Select check-in"
+                />
+              </div>
             </div>
             <div>
               <Label htmlFor="quick-checkout">Check-out</Label>
-              <Input
-                id="quick-checkout"
-                type="date"
-                value={formData.checkOut}
-                onChange={(e) => setFormData({...formData, checkOut: e.target.value})}
-                required
-              />
+              <div className="mt-2">
+                <DatePicker
+                  date={formData.checkOut}
+                  onSelect={(date) => setFormData({...formData, checkOut: date})}
+                  placeholder="Select check-out"
+                />
+              </div>
             </div>
           </div>
           

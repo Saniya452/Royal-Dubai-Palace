@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Calendar, Users, CreditCard, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -13,8 +14,8 @@ import { useToast } from "@/hooks/use-toast";
 const Booking = () => {
   const [step, setStep] = useState(1);
   const [bookingData, setBookingData] = useState({
-    checkIn: "",
-    checkOut: "",
+    checkIn: undefined as Date | undefined,
+    checkOut: undefined as Date | undefined,
     guests: "2",
     suite: "presidential",
     firstName: "",
@@ -26,7 +27,7 @@ const Booking = () => {
   const { toast } = useToast();
 
   const handleNext = () => {
-    if (step < 3) setStep(step + 1);
+    if (step < 4) setStep(step + 1);
   };
 
   const handleBack = () => {
@@ -34,9 +35,10 @@ const Booking = () => {
   };
 
   const handleBooking = () => {
+    setStep(4); // Move to confirmation step
     toast({
-      title: "Booking Confirmed!",
-      description: "Your reservation has been successfully submitted. Confirmation details will be sent to your email.",
+      title: "Payment Processed!",
+      description: "Your booking has been confirmed. Please see the confirmation details below.",
     });
     // In a real app, this would submit to a backend
   };
@@ -62,18 +64,26 @@ const Booking = () => {
 
             {/* Progress Steps */}
             <div className="flex items-center justify-center mb-12">
-              {[1, 2, 3].map((stepNumber) => (
-                <div key={stepNumber} className="flex items-center">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold ${
-                    step >= stepNumber 
-                      ? 'bg-accent text-accent-foreground' 
-                      : 'bg-secondary text-secondary-foreground'
-                  }`}>
-                    {step > stepNumber ? <Check className="h-6 w-6" /> : stepNumber}
+              {[
+                { step: 1, label: "Dates & Suite" },
+                { step: 2, label: "Guest Info" },
+                { step: 3, label: "Payment" },
+                { step: 4, label: "Confirmation" }
+              ].map((stepInfo, index) => (
+                <div key={stepInfo.step} className="flex items-center">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300 ${
+                      step >= stepInfo.step 
+                        ? 'bg-accent text-accent-foreground shadow-luxury' 
+                        : 'bg-secondary text-secondary-foreground'
+                    }`}>
+                      {step > stepInfo.step ? <Check className="h-6 w-6" /> : stepInfo.step}
+                    </div>
+                    <span className="text-xs text-muted-foreground mt-2">{stepInfo.label}</span>
                   </div>
-                  {stepNumber < 3 && (
-                    <div className={`w-20 h-1 mx-4 ${
-                      step > stepNumber ? 'bg-accent' : 'bg-secondary'
+                  {index < 3 && (
+                    <div className={`w-20 h-1 mx-4 transition-all duration-300 ${
+                      step > stepInfo.step ? 'bg-accent' : 'bg-secondary'
                     }`} />
                   )}
                 </div>
@@ -87,23 +97,23 @@ const Booking = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                       <Label htmlFor="checkIn">Check-in Date</Label>
-                      <Input
-                        id="checkIn"
-                        type="date"
-                        value={bookingData.checkIn}
-                        onChange={(e) => setBookingData({...bookingData, checkIn: e.target.value})}
-                        className="mt-2"
-                      />
+                      <div className="mt-2">
+                        <DatePicker
+                          date={bookingData.checkIn}
+                          onSelect={(date) => setBookingData({...bookingData, checkIn: date})}
+                          placeholder="Select check-in date"
+                        />
+                      </div>
                     </div>
                     <div>
                       <Label htmlFor="checkOut">Check-out Date</Label>
-                      <Input
-                        id="checkOut"
-                        type="date"
-                        value={bookingData.checkOut}
-                        onChange={(e) => setBookingData({...bookingData, checkOut: e.target.value})}
-                        className="mt-2"
-                      />
+                      <div className="mt-2">
+                        <DatePicker
+                          date={bookingData.checkOut}
+                          onSelect={(date) => setBookingData({...bookingData, checkOut: date})}
+                          placeholder="Select check-out date"
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -230,11 +240,11 @@ const Booking = () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Check-in:</span>
-                        <span className="text-foreground">{bookingData.checkIn}</span>
+                        <span className="text-foreground">{bookingData.checkIn?.toLocaleDateString() || 'Not selected'}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Check-out:</span>
-                        <span className="text-foreground">{bookingData.checkOut}</span>
+                        <span className="text-foreground">{bookingData.checkOut?.toLocaleDateString() || 'Not selected'}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Guests:</span>
@@ -283,6 +293,76 @@ const Booking = () => {
                       <CreditCard className="h-5 w-5 mr-2" />
                       Confirm Booking
                     </Button>
+                  </div>
+                </div>
+              )}
+
+              {step === 4 && (
+                <div className="text-center">
+                  <div className="mb-8">
+                    <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Check className="h-10 w-10 text-accent-foreground" />
+                    </div>
+                    <h2 className="text-3xl font-bold text-foreground mb-4">Booking Confirmed!</h2>
+                    <p className="text-lg text-muted-foreground mb-6">
+                      Thank you for choosing Royal Dubai Palace. Your reservation has been confirmed.
+                    </p>
+                  </div>
+
+                  <Card className="p-6 mb-8 bg-secondary/20 text-left">
+                    <h3 className="text-xl font-semibold text-foreground mb-4">Confirmation Details</h3>
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Confirmation Number:</span>
+                        <span className="text-foreground font-mono">RDP-{Date.now().toString().slice(-6)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Guest Name:</span>
+                        <span className="text-foreground">{bookingData.firstName} {bookingData.lastName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Email:</span>
+                        <span className="text-foreground">{bookingData.email}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Check-in:</span>
+                        <span className="text-foreground">{bookingData.checkIn?.toLocaleDateString() || 'Not selected'}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Check-out:</span>
+                        <span className="text-foreground">{bookingData.checkOut?.toLocaleDateString() || 'Not selected'}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Suite:</span>
+                        <span className="text-foreground capitalize">{bookingData.suite.replace('-', ' ')} Suite</span>
+                      </div>
+                      <div className="pt-3 border-t border-border">
+                        <div className="flex justify-between font-semibold text-lg">
+                          <span className="text-foreground">Total Paid:</span>
+                          <span className="text-accent">$5,000</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <div className="bg-accent/10 p-4 rounded-lg mb-6">
+                    <p className="text-sm text-muted-foreground">
+                      A confirmation email has been sent to {bookingData.email}. 
+                      Our concierge team will contact you 24 hours before your arrival.
+                    </p>
+                  </div>
+
+                  <div className="flex space-x-4">
+                    <Link to="/" className="flex-1">
+                      <Button variant="outline" className="w-full">
+                        Return Home
+                      </Button>
+                    </Link>
+                    <Link to="/properties" className="flex-1">
+                      <Button variant="luxury" className="w-full">
+                        Browse More Suites
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               )}

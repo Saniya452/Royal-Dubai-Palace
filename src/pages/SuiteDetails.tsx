@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Users, Square, Wifi, Car, Coffee, Utensils, Dumbbell, Heart, Calendar } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { useWishlist } from "@/hooks/use-wishlist";
 import suite1 from "@/assets/property-1.jpg";
 import suite2 from "@/assets/property-2.jpg";
 import suite3 from "@/assets/property-3.jpg";
@@ -53,6 +54,21 @@ const suiteData = {
 const SuiteDetails = () => {
   const { id } = useParams();
   const suite = suiteData[id as keyof typeof suiteData] || suiteData["1"];
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
+  const handleWishlistToggle = () => {
+    if (isInWishlist(suite.id.toString())) {
+      removeFromWishlist(suite.id.toString());
+    } else {
+      addToWishlist({
+        id: suite.id.toString(),
+        title: suite.title,
+        image: suite.image,
+        price: suite.price,
+        location: suite.location
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -144,9 +160,14 @@ const SuiteDetails = () => {
                         Book This Suite
                       </Button>
                     </Link>
-                    <Button variant="outline" className="w-full" size="lg">
-                      <Heart className="h-5 w-5 mr-2" />
-                      Add to Wishlist
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      size="lg"
+                      onClick={handleWishlistToggle}
+                    >
+                      <Heart className={`h-5 w-5 mr-2 ${isInWishlist(suite.id.toString()) ? 'fill-current text-red-500' : ''}`} />
+                      {isInWishlist(suite.id.toString()) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                     </Button>
                   </div>
 

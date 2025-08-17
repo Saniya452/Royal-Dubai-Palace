@@ -51,7 +51,10 @@ const About = () => {
                 <Button 
                   variant="luxury" 
                   size="lg"
-                  onClick={() => setIsHeritageModalOpen(true)}
+                  onClick={() => {
+                    const heritageSection = document.getElementById('heritage-section');
+                    heritageSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                 >
                   Discover Our Heritage
                 </Button>
@@ -106,6 +109,111 @@ const About = () => {
                 </p>
               </Card>
             </div>
+          </div>
+        </section>
+
+        {/* Heritage Section */}
+        <section id="heritage-section" className="py-20 px-4 lg:px-8">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-foreground mb-6">Our Royal Heritage</h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                A legacy of excellence spanning nearly three decades in the heart of Dubai
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
+              <div>
+                <Card className="p-8 bg-gradient-card h-full">
+                  <h3 className="text-2xl font-bold text-foreground mb-6">The Foundation Years</h3>
+                  <div className="space-y-4 text-muted-foreground">
+                    <p>
+                      Royal Dubai Palace was conceived in 1995 by visionary hotelier Ahmed Al-Maktoum, 
+                      who dreamed of creating an oasis of luxury that would rival the world's finest hotels 
+                      while celebrating the rich cultural heritage of the Arabian Peninsula.
+                    </p>
+                    <p>
+                      The construction took four years, employing master craftsmen from across the Middle East 
+                      to ensure every detail reflected the grandeur of traditional Arabian palaces while 
+                      incorporating cutting-edge modern amenities.
+                    </p>
+                  </div>
+                </Card>
+              </div>
+              
+              <div>
+                <Card className="p-8 bg-gradient-card h-full">
+                  <h3 className="text-2xl font-bold text-foreground mb-6">Architectural Marvel</h3>
+                  <div className="space-y-4 text-muted-foreground">
+                    <p>
+                      Our 75-story tower stands as a testament to Dubai's architectural prowess, 
+                      featuring a unique blend of contemporary design and traditional Islamic geometric patterns. 
+                      The building's facade changes color with the desert sunset, creating a living work of art.
+                    </p>
+                    <p>
+                      Each suite is positioned to maximize views of the Arabian Gulf, Dubai Marina, 
+                      or the iconic cityscape, ensuring every guest enjoys breathtaking panoramas 
+                      from their private sanctuary in the sky.
+                    </p>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+              <Card className="p-6 text-center bg-gradient-card">
+                <div className="text-4xl font-bold text-accent mb-2">28</div>
+                <div className="text-lg font-semibold text-foreground mb-2">Years of Excellence</div>
+                <div className="text-sm text-muted-foreground">Serving distinguished guests since 1995</div>
+              </Card>
+              
+              <Card className="p-6 text-center bg-gradient-card">
+                <div className="text-4xl font-bold text-accent mb-2">150+</div>
+                <div className="text-lg font-semibold text-foreground mb-2">International Awards</div>
+                <div className="text-sm text-muted-foreground">Recognized globally for excellence</div>
+              </Card>
+              
+              <Card className="p-6 text-center bg-gradient-card">
+                <div className="text-4xl font-bold text-accent mb-2">2M+</div>
+                <div className="text-lg font-semibold text-foreground mb-2">Royal Guests</div>
+                <div className="text-sm text-muted-foreground">Creating unforgettable memories</div>
+              </Card>
+            </div>
+
+            <Card className="p-8 bg-gradient-card">
+              <h3 className="text-2xl font-bold text-foreground mb-6 text-center">The Royal Experience</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="text-xl font-semibold text-foreground mb-4">Legendary Service</h4>
+                  <p className="text-muted-foreground mb-4">
+                    Our service philosophy is rooted in the ancient Arabian tradition of hospitality, 
+                    where guests are treated as honored family members. Every team member undergoes 
+                    extensive training to anticipate and exceed your every expectation.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Personal butler service for all suites</li>
+                    <li>• 24/7 multilingual concierge team</li>
+                    <li>• Customized experiences tailored to your preferences</li>
+                    <li>• Private shopping and dining arrangements</li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h4 className="text-xl font-semibold text-foreground mb-4">Cultural Heritage</h4>
+                  <p className="text-muted-foreground mb-4">
+                    We proudly showcase the finest aspects of Emirati culture while embracing 
+                    international sophistication. From our traditional majlis lounges to our 
+                    contemporary art galleries, every space tells a story of Dubai's remarkable journey.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Private art collection featuring regional artists</li>
+                    <li>• Traditional Arabian architectural elements</li>
+                    <li>• Cultural immersion experiences</li>
+                    <li>• Heritage storytelling sessions</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
           </div>
         </section>
       </main>

@@ -14,7 +14,7 @@ export const Hero = () => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroProperty})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/95 dark:from-background/90 dark:via-background/70 dark:to-background/90" />
       </div>
       
       <div className="relative z-10 container mx-auto px-4 lg:px-8 text-center">

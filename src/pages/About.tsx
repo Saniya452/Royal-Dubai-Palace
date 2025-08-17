@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Award, Users, Star, Clock } from "lucide-react";
+import { HeritageModal } from "@/components/HeritageModal";
 import heroProperty from "@/assets/hero-property.jpg";
 
 const About = () => {
+  const [isHeritageModalOpen, setIsHeritageModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -44,7 +48,13 @@ const About = () => {
                   Located in the prestigious Downtown Dubai, we offer unparalleled access to the city's most iconic 
                   attractions while providing a serene oasis of luxury and comfort.
                 </p>
-                <Button variant="luxury" size="lg">Discover Our Heritage</Button>
+                <Button 
+                  variant="luxury" 
+                  size="lg"
+                  onClick={() => setIsHeritageModalOpen(true)}
+                >
+                  Discover Our Heritage
+                </Button>
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <Card className="p-6 text-center bg-gradient-card">
@@ -100,6 +110,11 @@ const About = () => {
         </section>
       </main>
       <Footer />
+      
+      <HeritageModal 
+        isOpen={isHeritageModalOpen} 
+        onClose={() => setIsHeritageModalOpen(false)} 
+      />
     </div>
   );
 };

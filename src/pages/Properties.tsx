@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SuiteCard } from "@/components/SuiteCard";
 import { Button } from "@/components/ui/button";
+import { QuickBookingModal } from "@/components/QuickBookingModal";
 import suite1 from "@/assets/property-1.jpg";
 import suite2 from "@/assets/property-2.jpg";
 import suite3 from "@/assets/property-3.jpg";
@@ -76,6 +78,8 @@ const suites = [
 ];
 
 const Properties = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -91,7 +95,13 @@ const Properties = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button variant="luxury" size="lg">Filter by Category</Button>
-              <Button variant="outline" size="lg">Check Availability</Button>
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => setIsBookingModalOpen(true)}
+              >
+                Check Availability
+              </Button>
             </div>
           </div>
         </section>
@@ -108,6 +118,11 @@ const Properties = () => {
         </section>
       </main>
       <Footer />
+      
+      <QuickBookingModal 
+        isOpen={isBookingModalOpen} 
+        onClose={() => setIsBookingModalOpen(false)} 
+      />
     </div>
   );
 };

@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Phone, MessageCircle, Video, Mail, MapPin, Clock } from "lucide-react";
+import { QuickBookingModal } from "@/components/QuickBookingModal";
 import heroProperty from "@/assets/hero-property.jpg";
 
 const Contact = () => {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -97,13 +101,23 @@ const Contact = () => {
                   <p>Room Service: 24/7</p>
                   <p>Spa: 6:00 AM - 11:00 PM</p>
                 </div>
-                <Button variant="luxury">Book Now</Button>
+                <Button 
+                  variant="luxury"
+                  onClick={() => setIsBookingModalOpen(true)}
+                >
+                  Book Now
+                </Button>
               </Card>
             </div>
           </div>
         </section>
       </main>
       <Footer />
+      
+      <QuickBookingModal 
+        isOpen={isBookingModalOpen} 
+        onClose={() => setIsBookingModalOpen(false)} 
+      />
     </div>
   );
 };

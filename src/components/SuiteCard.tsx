@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Users, Square, Wifi, Car, Coffee } from "lucide-react";
+import { MapPin, Users, Square, Wifi, Car, Coffee, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface SuiteCardProps {
   image: string;
@@ -77,9 +78,19 @@ export const SuiteCard = ({
           </div>
         </div>
         
-        <Button className="w-full" variant="outline">
-          Book Suite
-        </Button>
+        <div className="flex space-x-2">
+          <Link to={`/suite/${1}`} className="flex-1">
+            <Button className="w-full" variant="outline">
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </Button>
+          </Link>
+          <Link to="/booking" className="flex-1">
+            <Button className="w-full" variant="luxury">
+              Book Suite
+            </Button>
+          </Link>
+        </div>
       </div>
     </Card>
   );

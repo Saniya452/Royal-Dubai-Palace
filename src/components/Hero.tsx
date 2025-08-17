@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
+import { VideoModal } from "@/components/VideoModal";
 import heroProperty from "@/assets/hero-property.jpg";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div 
@@ -26,11 +31,18 @@ export const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="luxury" size="lg" className="min-w-[200px]">
-              Book Your Stay
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button variant="outline" size="lg" className="min-w-[200px]">
+            <Link to="/booking">
+              <Button variant="luxury" size="lg" className="min-w-[200px]">
+                Book Your Stay
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="min-w-[200px]"
+              onClick={() => setIsVideoOpen(true)}
+            >
               <Play className="mr-2 h-5 w-5" />
               Virtual Tour
             </Button>
@@ -52,6 +64,8 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+      
+      <VideoModal isOpen={isVideoOpen} onClose={() => setIsVideoOpen(false)} />
     </section>
   );
 };
